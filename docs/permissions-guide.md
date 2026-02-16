@@ -1,3 +1,7 @@
+---
+description: WhatsApp Cloud API permissions guide — which scopes to request, whether you need App Review, how to pass it on the first submission, and how to recover from rejections.
+---
+
 # WhatsApp Permissions Guide
 
 **Get App Review approval on the first try.**
