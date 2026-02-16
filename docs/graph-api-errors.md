@@ -1,3 +1,7 @@
+---
+description: Root causes, fixes, and prevention patterns for the six Graph API errors behind 80% of WhatsApp Cloud API integration failures — including errors 190, 100, 200, 131047, 368, and rate limits.
+---
+
 # Graph API Error Reference
 
 **Diagnose once. Fix correctly. Prevent recurrence.**
