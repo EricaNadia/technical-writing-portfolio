@@ -1,0 +1,582 @@
+/*
+  Custom styles for MkDocs Material.
+
+  Design system: Stripe-inspired (indigo/slate palette, clean borders, no shadows).
+
+  Architectural rules:
+  1. All sidebar LAYOUT properties (width, position, height, border) are scoped
+     to min-width: 76.1875em — Material's breakpoint where sidebars become
+     persistent panels. Below that breakpoint Material JS owns the drawer.
+  2. Typography and color overrides apply at all screen sizes.
+  3. No position, width, or height is set on .md-sidebar outside the desktop block.
+  4. !important is used only where Material sets the same property with higher
+     specificity in its own stylesheet — each use is documented inline.
+*/
+
+
+/* ─── COLOR TOKENS ───────────────────────────────── */
+
+:root {
+  /* Brand palette */
+  --stripe-blue:   #635BFF;
+  --stripe-dark:   #0A2540;
+  --stripe-slate:  #425466;
+  --stripe-gray:   #6B7C93;
+  --stripe-border: #E3E8EE;
+  --stripe-bg:     #F6F9FC;
+
+  /* Dark mode variants */
+  --stripe-blue-dark:   #A8A2FF;
+  --stripe-dark-dark:   #E6E6E6;
+  --stripe-slate-dark:  #B3B3B3;
+  --stripe-gray-dark:   #999999;
+  --stripe-border-dark: #333333;
+  --stripe-bg-dark:     #1A1A1A;
+
+  /* Semantic aliases — default to light */
+  --bg-color:     #FFFFFF;
+  --text-color:   var(--stripe-dark);
+  --border-color: var(--stripe-border);
+  --code-bg:      #F5F7FA;
+
+  /* Typography scale */
+  --font-size-body:          0.95rem;
+  --font-size-nav:           0.9rem;
+  --font-size-secondary-nav: 0.82rem;
+  --font-size-code:          0.9rem;
+  --font-size-h1:            2.4rem;
+  --font-size-h2:            1.45rem;
+  --font-size-h3:            1.2rem;
+
+  /* Override Material's default purple accent with Stripe blue.
+     These must be set here — Material reads them at render time. */
+  --md-primary-fg-color:        #635BFF;
+  --md-primary-fg-color--light: #8B85FF;
+  --md-primary-fg-color--dark:  #4B44CC;
+  --md-accent-fg-color:         #635BFF;
+}
+
+
+/* ─── DARK MODE ──────────────────────────────────── */
+
+[data-md-color-scheme="slate"] {
+  --bg-color:     var(--stripe-bg-dark);
+  --text-color:   var(--stripe-dark-dark);
+  --border-color: var(--stripe-border-dark);
+  --code-bg:      #2A2A2A;
+
+  /* Remap brand tokens to dark variants so all downstream rules
+     continue to reference --stripe-* without conditional logic. */
+  --stripe-blue:   var(--stripe-blue-dark);
+  --stripe-dark:   var(--stripe-dark-dark);
+  --stripe-slate:  var(--stripe-slate-dark);
+  --stripe-gray:   var(--stripe-gray-dark);
+  --stripe-border: var(--stripe-border-dark);
+  --stripe-bg:     var(--stripe-bg-dark);
+
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+[data-md-color-scheme="slate"] .md-header {
+  background: var(--stripe-bg);
+  border-bottom: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+[data-md-color-scheme="slate"] .md-header__title,
+[data-md-color-scheme="slate"] .md-header__title .md-ellipsis {
+  color: var(--text-color);
+}
+
+[data-md-color-scheme="slate"] .md-search__input {
+  background: var(--stripe-bg);
+  border: 1px solid var(--border-color);
+}
+
+/* Background only — no layout properties. Width/position handled in desktop block. */
+[data-md-color-scheme="slate"] .md-sidebar--primary {
+  background: var(--stripe-bg);
+}
+
+[data-md-color-scheme="slate"] .md-nav__link {
+  color: var(--stripe-slate);
+}
+
+[data-md-color-scheme="slate"] .md-nav__link:hover {
+  background: rgba(168, 162, 255, 0.15);
+  color: var(--stripe-blue);
+}
+
+/* !important required: Material sets active nav color with higher specificity */
+[data-md-color-scheme="slate"] .md-nav__link--active,
+[data-md-color-scheme="slate"] .md-nav__link--active:hover {
+  color: var(--stripe-blue) !important;
+  background: rgba(168, 162, 255, 0.25) !important;
+}
+
+[data-md-color-scheme="slate"] .md-typeset h1,
+[data-md-color-scheme="slate"] .md-typeset h2,
+[data-md-color-scheme="slate"] .md-typeset h3 {
+  color: var(--stripe-dark);
+}
+
+[data-md-color-scheme="slate"] .md-typeset p,
+[data-md-color-scheme="slate"] .md-typeset li,
+[data-md-color-scheme="slate"] .md-typeset strong {
+  color: var(--stripe-slate);
+}
+
+[data-md-color-scheme="slate"] .md-typeset a {
+  color: var(--stripe-blue);
+}
+
+/* !important required: Material sets hover color with higher specificity */
+[data-md-color-scheme="slate"] .md-typeset a:hover {
+  color: var(--stripe-blue-dark) !important;
+  text-decoration: underline;
+}
+
+/* !important required: Material sets pre background with higher specificity */
+[data-md-color-scheme="slate"] .md-typeset pre {
+  background: var(--code-bg) !important;
+  border: 1px solid var(--border-color);
+}
+
+[data-md-color-scheme="slate"] .md-typeset code:not(pre code) {
+  background: var(--stripe-bg);
+  border: 1px solid var(--border-color);
+  color: var(--stripe-dark);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) {
+  border: 1px solid var(--border-color);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) thead tr {
+  background: var(--stripe-bg);
+}
+
+/* !important required: Material sets th border with higher specificity */
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) th {
+  color: var(--stripe-dark);
+  border-bottom: 2px solid var(--border-color) !important;
+}
+
+/* !important required: Material sets td border with higher specificity */
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) td {
+  color: var(--stripe-slate);
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) tr:hover td {
+  background: rgba(168, 162, 255, 0.08);
+}
+
+[data-md-color-scheme="slate"] .md-typeset blockquote {
+  border-left: 3px solid var(--stripe-blue);
+  background: var(--stripe-bg);
+  color: var(--stripe-slate);
+}
+
+
+/* ─── HEADER ─────────────────────────────────────── */
+
+.md-header {
+  background: #F9FAFB;
+  border-bottom: 1px solid var(--stripe-border);
+  box-shadow: none;
+  color: var(--stripe-dark);
+}
+
+.md-header__title,
+.md-header__title .md-ellipsis {
+  color: var(--stripe-dark);
+  font-weight: 600;
+}
+
+.md-search__input {
+  background: var(--stripe-bg);
+  border: 1px solid var(--stripe-border);
+  border-radius: 6px;
+}
+
+/* !important required: Material sets headerlink visibility with higher specificity */
+.headerlink { display: none !important; }
+
+
+/* ─── FOOTER ─────────────────────────────────────── */
+
+.md-footer,
+.md-footer-meta {
+  background: var(--stripe-bg);
+  border-top: 1px solid var(--stripe-border);
+  color: var(--stripe-gray);
+}
+
+
+/* ─── NAV LINK STYLES — all screen sizes ─────────── */
+/*
+  Typography, color, and interaction only.
+  No layout properties (width, position, height) here.
+  Those are scoped to the desktop media block below.
+*/
+
+.md-nav--primary .md-nav__title {
+  color: var(--stripe-dark);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.75rem 0.875rem 0.375rem;
+}
+
+.md-nav__link {
+  color: var(--stripe-slate);
+  font-size: var(--font-size-nav);
+  padding: 0.5rem 0.875rem;
+  border-radius: 5px;
+  transition: background 0.15s ease, color 0.15s ease;
+  line-height: 1.5;
+}
+
+.md-nav__link:hover {
+  background: var(--stripe-bg);
+  color: var(--stripe-dark);
+}
+
+/* !important required: Material sets active nav color with higher specificity */
+.md-nav__link--active,
+.md-nav__link--active:hover {
+  color: var(--stripe-blue) !important;
+  font-weight: 600;
+  background: rgba(99, 91, 255, 0.07);
+}
+
+.md-nav--secondary .md-nav__title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--stripe-gray);
+  padding: 0.75rem 0.875rem 0.375rem;
+}
+
+.md-nav--secondary .md-nav__link {
+  font-size: var(--font-size-secondary-nav);
+  color: var(--stripe-gray);
+  padding: 0.4rem 0.75rem;
+  opacity: 0.85;
+  line-height: 1.5;
+}
+
+.md-nav--secondary .md-nav__link:hover {
+  color: var(--stripe-dark);
+  background: var(--stripe-bg);
+}
+
+/* !important required: Material sets active TOC link color with higher specificity */
+.md-nav--secondary .md-nav__link--active {
+  color: var(--stripe-blue) !important;
+  font-weight: 500;
+  opacity: 1;
+}
+
+
+/* ─── SIDEBAR LAYOUT — desktop only ─────────────── */
+/*
+  Scoped to min-width: 76.1875em — Material's breakpoint where sidebars
+  transition from a JS-controlled drawer to persistent layout panels.
+
+  Below this breakpoint:
+  - Material renders sidebars inside a drawer toggled by the hamburger button
+  - Material JS controls all positioning, visibility, and dimensions
+  - Any CSS width/position/height set here would override that and break the drawer
+
+  Do not add layout properties for .md-sidebar outside this block.
+*/
+
+@media (min-width: 76.1875em) {
+  .md-sidebar--primary {
+    background: #ffffff;
+    border-right: 1px solid var(--stripe-border);
+    width: 16.25rem;
+    position: sticky;
+    top: 3.5rem;
+    height: calc(100vh - 3.5rem);
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .md-sidebar--secondary {
+    border-left: 1px solid var(--stripe-border);
+    width: 12rem;
+    position: sticky;
+    top: 3.5rem;
+    height: calc(100vh - 3.5rem);
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .md-sidebar--primary::-webkit-scrollbar,
+  .md-sidebar--secondary::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+}
+
+
+/* ─── CONTENT AREA ───────────────────────────────── */
+
+/*
+  overflow-x: hidden on html prevents the page from growing wider than the
+  viewport if any inline element (long URL, unbreakable string) exceeds the
+  content column width. This is a containment rule, not a fix for layout bugs —
+  the layout bugs were fixed by scoping sidebar rules to the desktop block above.
+*/
+html {
+  overflow-x: hidden;
+}
+
+.md-grid {
+  max-width: var(--md-layout-width);
+}
+
+.md-content__inner {
+  max-width: 70rem;
+  margin: 0 auto;
+  padding: 3.5rem 2.5rem 8rem;
+}
+
+
+/* ─── BASE TYPOGRAPHY ────────────────────────────── */
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+               "Helvetica Neue", sans-serif;
+  color: var(--stripe-dark);
+  -webkit-font-smoothing: antialiased;
+}
+
+.md-typeset {
+  font-size: var(--font-size-body);
+}
+
+
+/* ─── HEADINGS ───────────────────────────────────── */
+
+.md-typeset h1 {
+  font-size: var(--font-size-h1);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--stripe-dark);
+  /* !important required: Material adds a border-bottom to h1 with higher specificity */
+  border-bottom: none !important;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+/* Subtitle treatment: first paragraph immediately after H1 */
+.md-typeset h1 + p {
+  font-size: 1.1rem;
+  color: var(--stripe-gray);
+  line-height: 1.55;
+  margin-bottom: 2rem;
+}
+
+.md-typeset h2 {
+  font-size: var(--font-size-h2);
+  font-weight: 600;
+  color: var(--stripe-dark);
+  /* !important required: Material sets h2 border with higher specificity */
+  border-bottom: 1px solid var(--stripe-border) !important;
+  padding-bottom: 0.5rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.015em;
+}
+
+.md-typeset h3 {
+  font-size: var(--font-size-h3);
+  font-weight: 600;
+  color: var(--stripe-dark);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+
+/* ─── BODY TEXT ──────────────────────────────────── */
+
+.md-typeset p {
+  color: var(--stripe-slate);
+  font-size: var(--font-size-body);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+.md-typeset strong {
+  color: var(--stripe-dark);
+  font-weight: 600;
+}
+
+
+/* ─── LINKS ──────────────────────────────────────── */
+
+.md-typeset a {
+  color: var(--stripe-blue);
+  text-decoration: none;
+}
+
+.md-typeset a:hover {
+  text-decoration: underline;
+  opacity: 0.85;
+}
+
+
+/* ─── LISTS ──────────────────────────────────────── */
+
+.md-typeset ul li,
+.md-typeset ol li {
+  color: var(--stripe-slate);
+  line-height: 1.65;
+  margin-bottom: 0.3rem;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+
+/* ─── HORIZONTAL RULE ────────────────────────────── */
+
+.md-typeset hr {
+  border: none;
+  border-top: 1px solid var(--stripe-border);
+  margin: 2.5rem 0;
+}
+
+
+/* ─── INLINE CODE ────────────────────────────────── */
+
+.md-typeset code:not(pre code) {
+  background: #F3F4F6;
+  border: 1px solid var(--stripe-border);
+  border-radius: 4px;
+  color: var(--stripe-dark);
+  font-size: 0.9em;
+  padding: 0.15em 0.4em;
+}
+
+
+/* ─── CODE BLOCKS ────────────────────────────────── */
+
+.md-typeset pre {
+  /* !important required: Material sets pre background with higher specificity */
+  background: #F5F7FA !important;
+  border: 1px solid var(--stripe-border);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.md-typeset pre > code {
+  /* !important required: Material sets these on pre > code with higher specificity */
+  background: transparent !important;
+  padding: 0 !important;
+  border: none;
+  font-size: var(--font-size-code);
+  line-height: 1.65;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+
+/* ─── TABLES ─────────────────────────────────────── */
+
+/*
+  Wide tables (4+ columns) will overflow their container on narrow screens.
+  overflow-x: auto on the wrapper allows horizontal scrolling rather than
+  clipping. The inner table retains overflow: hidden for border-radius rendering.
+*/
+.md-typeset__scrollwrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.md-typeset table:not([class]) {
+  border: 1px solid var(--stripe-border);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  font-size: 0.9375rem;
+  margin: 1.5rem 0;
+  /* Ensure table is at least as wide as its content on mobile */
+  min-width: 100%;
+  display: table;
+}
+
+.md-typeset table:not([class]) thead tr {
+  background: var(--stripe-bg);
+}
+
+.md-typeset table:not([class]) th {
+  font-weight: 600;
+  color: var(--stripe-dark);
+  /* !important required: Material sets th border with higher specificity */
+  border-bottom: 2px solid var(--stripe-border) !important;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.md-typeset table:not([class]) td {
+  padding: 0.75rem 1rem;
+  /* !important required: Material sets td border and top with higher specificity */
+  border-bottom: 1px solid var(--stripe-border) !important;
+  border-top: none !important;
+  color: var(--stripe-slate);
+}
+
+.md-typeset table:not([class]) tr:last-child td {
+  /* !important required: Material sets last row border with higher specificity */
+  border-bottom: none !important;
+}
+
+.md-typeset table:not([class]) tr:hover td {
+  background: rgba(99, 91, 255, 0.02);
+}
+
+
+/* ─── BLOCKQUOTE ─────────────────────────────────── */
+
+.md-typeset blockquote {
+  border-left: 3px solid var(--stripe-blue);
+  background: var(--stripe-bg);
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 6px 6px 0;
+  color: var(--stripe-slate);
+  margin: 1.5rem 0;
+}
+
+
+/* ─── RESPONSIVE TYPOGRAPHY ──────────────────────── */
+/*
+  Font size scaling and content padding only.
+  No sidebar, nav, or layout overrides below this line —
+  those are owned by Material below 76.1875em.
+*/
+
+@media (max-width: 76.1875em) {
+  .md-typeset h1 { font-size: 2.1rem; }
+  .md-content__inner { padding: 2rem 1.25rem 5rem; }
+}
+
+@media (max-width: 48em) {
+  .md-typeset h1 { font-size: 1.85rem; }
+  .md-typeset h1 + p { font-size: 1rem; }
+  .md-content__inner { padding: 1.5rem 1rem 4rem; }
+}

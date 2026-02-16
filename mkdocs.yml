@@ -1,0 +1,89 @@
+site_name: Erica Nadia
+site_description: Technical Writing Portfolio — API Documentation
+site_url: https://ericanadia.github.io/technical-writing-portfolio
+
+repo_url: https://github.com/EricaNadia/technical-writing-portfolio
+repo_name: Portfolio
+
+theme:
+  name: material
+
+  icon:
+    repo: fontawesome/brands/github
+
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+
+    - scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+  font:
+    text: Inter
+    code: Roboto Mono
+
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.top
+    - content.code.copy
+    - toc.follow
+    - navigation.sections
+
+markdown_extensions:
+  - toc:
+      toc_depth: 3
+      permalink: false
+  - admonition
+  - pymdownx.details
+  - pymdownx.highlight:
+      auto_title: true
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+      use_pygments: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+      clickable_checkbox: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.inlinehilite
+  - tables
+  - attr_list
+  - def_list
+  - md_in_html
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Documentation:
+      - WhatsApp API Quick Start: whatsapp-quickstart.md
+      - Graph API Error Reference: graph-api-errors.md
+      - Permissions Guide: permissions-guide.md
+
+extra_css:
+  - stylesheets/custom.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/EricaNadia
+      name: GitHub
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/ericaavitzur
+      name: LinkedIn
+
+# Color palette is controlled entirely via custom.css using CSS custom properties.
+# This avoids the maintenance trap of conflicting color declarations across
+# mkdocs.yml (primary/accent) and CSS variable overrides.
+
+copyright: © 2026 Erica Nadia
