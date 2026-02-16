@@ -1,3 +1,7 @@
+---
+description: Send your first WhatsApp message via the Cloud API in 15 minutes. Covers test mode, production credentials, System User tokens, and the six most common setup errors.
+---
+
 # WhatsApp Business API: Quick Start
 
 **Send your first WhatsApp message in under 15 minutes.**
