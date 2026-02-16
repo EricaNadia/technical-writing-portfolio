@@ -1,3 +1,7 @@
+---
+description: Technical writing portfolio demonstrating API documentation architecture for Meta's WhatsApp Cloud API, Graph API error reference, and permissions system.
+---
+
 # Meta APIs, Rewritten for Developers
 
 Incorrect documentation decisions on large API platforms create operational cost at scale: engineers abandon integrations, support queues grow, and onboarding becomes a manual process. This portfolio demonstrates how documentation architecture — not documentation quality alone — can eliminate those failure modes measurably.
